@@ -14,5 +14,22 @@
 }
 
 .formButton {
-    height: 50px;
+    height: 50px; 
+    background: rgb(112, 111, 111);
+    color: bisque;
+    font-size: 25px;
+}
+
+.formButtonDisabled {
+    height: 50px; 
+    font-size: 25px;
+}
+
+.valid {
+    border: 3px solid green;
+}
+
+.invalid {
+    border: 3px solid red;
+    color: red;
 }
