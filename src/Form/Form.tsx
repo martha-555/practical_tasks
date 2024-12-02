@@ -1,104 +1,91 @@
-import { useEffect, useRef, useState } from 'react'
-import classes from './styles.module.css'
+/** @format */
+
+import { useEffect, useRef, useState } from "react";
+import classes from "./styles.module.css";
+import { isValid } from "../config/validationRules";
 
 const Form = () => {
   const ref = useRef<HTMLButtonElement>(null);
-  
+
   const [userInfo, setUserInfo] = useState({
-    name: '',
-    email: '',
-    password: ''
+    name: "",
+    email: "",
+    password: "",
   });
-  
+
   const [errorMessage, setErrorMessage] = useState({
-    name: '',
-    email: '',
-    password: ''
+    name: "",
+    email: "",
+    password: "",
   });
 
   const handleName = (e: React.FormEvent<HTMLInputElement>) => {
     const name = (e.target as HTMLInputElement).value;
-    const regex = /^[A-Za-z]+$/;
-    
-    if (regex.test(name)) {
+
+    if (isValid("name", name)) {
       setUserInfo((prev) => ({
         ...prev,
-        name
+        name,
       }));
       setErrorMessage((prev) => ({
         ...prev,
-        name: ''
+        name: "",
       }));
-    }
-    
-    if (!regex.test(name)) {
+    } else {
       setErrorMessage((prevValue) => ({
         ...prevValue,
-        name: "Invalid name format"
+        name: "Invalid name format",
       }));
       setUserInfo((prev) => ({
         ...prev,
-        name: ''
+        name: "",
       }));
     }
   };
 
   const handleEmail = (e: React.FormEvent<HTMLInputElement>) => {
-    const start = '[^\\.\\-]';
-    const prohibitedCharacters = '(?!.*\\.{2}|--|\\.-|\\-\\.)';
-    const localPart = "[a-zA-Z0-9._%+!$'*=+-]";
-    const beforeTheDomain = '(?![\\.\\-])';
-    const allowedInTheDomain = '[a-zA-Z0-9.-]';
-    
-    const validEmail = new RegExp(`^${start}${prohibitedCharacters}${localPart}+\\w@${beforeTheDomain}${allowedInTheDomain}+\\w\\.\\w{2,}$`);
     const email = (e.target as HTMLInputElement).value;
 
-    if (validEmail.test(email)) {
+    if (isValid("email", email)) {
       setUserInfo((prev) => ({
         ...prev,
-        email
+        email,
       }));
       setErrorMessage((prev) => ({
         ...prev,
-        email: ''
+        email: "",
       }));
-    }
-
-    if (!validEmail.test(email)) {
+    } else {
       setErrorMessage((prev) => ({
         ...prev,
-        email: 'Invalid email'
+        email: "Invalid email",
       }));
       setUserInfo((prev) => ({
         ...prev,
-        email: ''
+        email: "",
       }));
     }
   };
 
   const handlePassword = (e: React.FormEvent<HTMLInputElement>) => {
-    const regex = /^(?=\S*\d)(?=\S*[A-Z])(?=\S*[a-z])(?=\S*\W)\S{5,}$/;
     const password = (e.target as HTMLInputElement).value;
-
-    if (regex.test(password)) {
+    if (isValid("password", password)) {
       setUserInfo((prev) => ({
         ...prev,
-        password
+        password,
       }));
       setErrorMessage((prev) => ({
         ...prev,
-        password: ''
+        password: "",
       }));
-    }
-
-    if (!regex.test(password)) {
+    } else {
       setUserInfo((prev) => ({
         ...prev,
-        password: ''
+        password: "",
       }));
       setErrorMessage((prev) => ({
         ...prev,
-        password: 'The password is not secure'
+        password: "The password is not secure",
       }));
     }
   };
@@ -115,10 +102,18 @@ const Form = () => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit} className={classes.form} action="martagolov4ak@gmail.com">
+      <form
+        onSubmit={handleSubmit}
+        className={classes.form}
+        action="martagolov4ak@gmail.com"
+      >
         <input
           required
-          className={userInfo.name && classes.valid || errorMessage.name && classes.invalid || ''}
+          className={
+            (userInfo.name && classes.valid) ||
+            (errorMessage.name && classes.invalid) ||
+            ""
+          }
           onChange={handleName}
           type="text"
           placeholder="name"
@@ -126,7 +121,11 @@ const Form = () => {
         <span>{errorMessage.name}</span>
         <input
           required
-          className={userInfo.email && classes.valid || errorMessage.email && classes.invalid || ''}
+          className={
+            (userInfo.email && classes.valid) ||
+            (errorMessage.email && classes.invalid) ||
+            ""
+          }
           onChange={handleEmail}
           type="email"
           placeholder="email"
@@ -134,7 +133,11 @@ const Form = () => {
         <span>{errorMessage.email}</span>
         <input
           required
-          className={userInfo.password && classes.valid || errorMessage.password && classes.invalid || ''}
+          className={
+            (userInfo.password && classes.valid) ||
+            (errorMessage.password && classes.invalid) ||
+            ""
+          }
           onChange={handlePassword}
           type="password"
           placeholder="password"
@@ -144,8 +147,12 @@ const Form = () => {
         <button
           ref={ref}
           disabled
-          className={ref.current?.disabled === false ? classes.formButton : classes.formButtonDisabled}
-          type='submit'
+          className={
+            ref.current?.disabled === false
+              ? classes.formButton
+              : classes.formButtonDisabled
+          }
+          type="submit"
         >
           Submit
         </button>
