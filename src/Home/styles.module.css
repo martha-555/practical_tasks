@@ -1,0 +1,22 @@
+/** @format */
+
+.container {
+  background-image: url("../images/_DSC8430.jpg");
+  height: 100vh;
+  width: 100%;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  /* background-position: center center; */
+}
+
+.home {
+  text-align: center;
+  font-size: 40px;
+  font-weight: bold;
+}
+
+@media (max-width: 1285.6px) {
+  .container {
+    background-size: cover;
+  }
+}

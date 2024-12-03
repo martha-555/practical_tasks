@@ -1,0 +1,25 @@
+/** @format */
+.navigation {
+  list-style: none;
+}
+
+li {
+  border: 1px solid grey;
+  margin: 10px;
+}
+nav a {
+  text-decoration: none;
+  color: black;
+  font-size: 30px;
+  display: inline-block;
+  width: 100%;
+}
+
+li:hover {
+  background: rgb(98, 97, 95);
+  font-size: 35px;
+}
+
+li a:active {
+  background: rebeccapurple;
+}

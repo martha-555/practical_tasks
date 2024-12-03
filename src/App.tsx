@@ -13,13 +13,18 @@ import {
   Routes,
 } from "react-router-dom";
 import SimpleForm from "./SimpleForm/SimpleForm";
+import Home from "./Home/Home";
 
 function App() {
   // для складних проектів?
   const routes = createBrowserRouter([
     {
       path: "*",
-      element: <SimpleForm />,
+      element: <Home />,
+    },
+    {
+      path: "/home",
+      element: <Home />,
     },
     {
       path: "/simple_form",

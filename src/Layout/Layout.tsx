@@ -1,11 +1,14 @@
 /** @format */
+
+import classes from "./styles.module.css";
+/** @format */
 import { Outlet, Link } from "react-router-dom";
 const Layout = () => {
   return (
     <>
-      <nav>
+      <nav className={classes.navigation}>
         <li>
-          <Link to="/">Home</Link>
+          <Link to="/home">Home</Link>
         </li>
         <li>
           <Link to="/simple_form">Simple Form</Link>
