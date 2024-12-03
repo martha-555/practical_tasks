@@ -14,6 +14,7 @@ import {
 } from "react-router-dom";
 import SimpleForm from "./SimpleForm/SimpleForm";
 import Home from "./Home/Home";
+import HookForm from "./Hook_Form/HookForm";
 
 function App() {
   // для складних проектів?
@@ -29,6 +30,10 @@ function App() {
     {
       path: "/simple_form",
       element: <SimpleForm />,
+    },
+    {
+      path: "/hook_form",
+      element: <HookForm />,
     },
   ]);
 

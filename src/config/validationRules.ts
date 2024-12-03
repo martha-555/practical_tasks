@@ -2,7 +2,7 @@
 
 type Validator = {
   minLength?: number;
-  regex?: RegExp;
+  regex: RegExp;
 };
 
 const start = "[^\\.\\-]";
@@ -11,12 +11,13 @@ const localPart = "[a-zA-Z0-9._%+!$'*=+-]";
 const beforeTheDomain = "(?![\\.\\-])";
 const allowedInTheDomain = "[a-zA-Z0-9.-]";
 
-const validators: Record<"name" | "email" | "password", Validator> = {
+export const validators: Record<"name" | "email" | "password", Validator> = {
   name: {
     minLength: 2,
     regex: /^[A-Za-z]+$/,
   },
   email: {
+    minLength: 6,
     regex: new RegExp(
       `^${start}${prohibitedCharacters}${localPart}{0,}\\@${beforeTheDomain}${allowedInTheDomain}+\\w\\.\\w{2,}$`
     ),

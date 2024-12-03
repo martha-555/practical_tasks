@@ -7,7 +7,7 @@ const Home = () => {
   return (
     <PageWrapper>
       <div className={classes.container}>
-        <div className={classes.home}>HOME</div>
+        <div className={classes.home}>&#10084; HOME &#x2764;</div>
       </div>
     </PageWrapper>
   );

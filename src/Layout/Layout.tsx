@@ -13,6 +13,9 @@ const Layout = () => {
         <li>
           <Link to="/simple_form">Simple Form</Link>
         </li>
+        <li>
+          <Link to="/hook_form">Hook Form</Link>
+        </li>
       </nav>
     </>
   );
