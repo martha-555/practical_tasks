@@ -1,0 +1,23 @@
+/** @format */
+
+.form {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  height: 300px;
+  justify-content: space-evenly;
+  margin: 0 auto;
+}
+
+.formButton {
+  height: 50px;
+  background: rgb(112, 111, 111);
+  color: bisque;
+  font-size: 25px;
+}
+
+.formButtonDisabled {
+  height: 50px;
+  font-size: 25px;
+}

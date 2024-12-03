@@ -1,12 +1,12 @@
 /** @format */
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import classes from "./styles.module.css";
 import { isValid } from "../config/validationRules";
+import PageWrapper from "../PageWrapper/PageWrapper";
+import InputField from "../InputField/InputField";
 
-const Form = () => {
-  const ref = useRef<HTMLButtonElement>(null);
-
+const SimpleForm = () => {
   const [userInfo, setUserInfo] = useState({
     name: "",
     email: "",
@@ -94,61 +94,43 @@ const Form = () => {
     e.preventDefault();
   };
 
-  useEffect(() => {
-    if (ref.current && userInfo.email && userInfo.name && userInfo.password) {
-      ref.current.disabled = false;
-    }
-  }, [userInfo]);
+  const disabledButton = userInfo.email && userInfo.name && userInfo.password;
 
   return (
-    <div>
+    <PageWrapper>
       <form
         onSubmit={handleSubmit}
         className={classes.form}
         action="martagolov4ak@gmail.com"
       >
-        <input
-          required
-          className={
-            (userInfo.name && classes.valid) ||
-            (errorMessage.name && classes.invalid) ||
-            ""
-          }
+        <InputField
+          placeholder="name"
           onChange={handleName}
           type="text"
-          placeholder="name"
+          value={userInfo.name}
+          errorMessage={errorMessage.name}
         />
         <span>{errorMessage.name}</span>
-        <input
-          required
-          className={
-            (userInfo.email && classes.valid) ||
-            (errorMessage.email && classes.invalid) ||
-            ""
-          }
+        <InputField
+          placeholder="email"
           onChange={handleEmail}
           type="email"
-          placeholder="email"
+          value={userInfo.email}
+          errorMessage={errorMessage.email}
         />
         <span>{errorMessage.email}</span>
-        <input
-          required
-          className={
-            (userInfo.password && classes.valid) ||
-            (errorMessage.password && classes.invalid) ||
-            ""
-          }
+        <InputField
+          placeholder="password"
           onChange={handlePassword}
           type="password"
-          placeholder="password"
-          maxLength={10}
+          value={userInfo.password}
+          errorMessage={errorMessage.password}
         />
         <span>{errorMessage.password}</span>
         <button
-          ref={ref}
-          disabled
+          disabled={!disabledButton}
           className={
-            ref.current?.disabled === false
+            !disabledButton === false
               ? classes.formButton
               : classes.formButtonDisabled
           }
@@ -157,8 +139,8 @@ const Form = () => {
           Submit
         </button>
       </form>
-    </div>
+    </PageWrapper>
   );
 };
 
-export default Form;
+export default SimpleForm;

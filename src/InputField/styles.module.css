@@ -1,0 +1,15 @@
+/** @format */
+
+.valid {
+  border: 3px solid green;
+}
+
+.invalid {
+  border: 3px solid red;
+  color: red;
+}
+
+input {
+  height: 50px;
+  font-size: 30px;
+}
