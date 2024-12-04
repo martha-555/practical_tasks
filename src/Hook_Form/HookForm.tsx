@@ -3,15 +3,16 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import PageWrapper from "../PageWrapper/PageWrapper";
 import classes from "./styles.module.css";
-
-// import { ErrorMessage } from "@hookform/error-message";
-
 import { validators } from "../config/validationRules";
+import HookFormInput from "./Hook_Form_Input/HookFormInput";
+
 type Inputs = {
   name: string;
   email: string;
   password: string;
+  text: string;
 };
+
 const HookForm = () => {
   const { name, email, password } = validators;
   const {
@@ -25,13 +26,25 @@ const HookForm = () => {
     console.log(e);
   };
 
+  const { control } = useForm<Inputs>({
+    defaultValues: {
+      name: "",
+      text: "",
+      password: "",
+      email: "",
+    },
+    mode: "onChange",
+  });
+
+  console.log(control);
   return (
     <PageWrapper>
       <form className={classes.hookForm} onSubmit={handleSubmit(onSubmit)}>
-        <input
+        <HookFormInput
+          control={control}
           type="text"
-          placeholder="name"
-          {...register("name", {
+          name="name"
+          rules={{
             required: "The name field is required",
             pattern: {
               value: name.regex,
@@ -41,13 +54,13 @@ const HookForm = () => {
               value: name.minLength || 0,
               message: `The name must consist of a least ${name.minLength} characters!`,
             },
-          })}
+          }}
         />
-        {errors.name && <span>{errors.name.message}</span>}
-        <input
+        <HookFormInput
+          control={control}
+          name="email"
           type="email"
-          placeholder="email"
-          {...register("email", {
+          rules={{
             required: "The email field is required!",
             pattern: {
               value: email.regex,
@@ -57,13 +70,13 @@ const HookForm = () => {
               value: email.minLength || 0,
               message: ` The email must exceed ${email.minLength} characters!`,
             },
-          })}
+          }}
         />
-        {errors.email && <span>{errors.email.message}</span>}
-        <input
+        <HookFormInput
+          control={control}
+          name="password"
           type="password"
-          placeholder="password"
-          {...register("password", {
+          rules={{
             required: "The password field is required!",
             pattern: {
               value: password.regex,
@@ -74,9 +87,8 @@ const HookForm = () => {
               value: password.minLength || 0,
               message: ` The email must exceed ${password.minLength} characters!`,
             },
-          })}
+          }}
         />
-        {errors.password && <span>{errors.password.message}</span>}
         <input type="submit" />
       </form>
     </PageWrapper>
