@@ -17,8 +17,8 @@ type FormValues = {
 
 interface HookFormInputProps {
   control: Control<any>;
-  name: keyof FormValues; // Вказуємо ім'я поля, що відповідає інтерфейсу FormInputs
-  type?: string; // Додаємо можливість передавати тип інпуту
+  name: keyof FormValues;
+  type?: string;
   rules?: RegisterOptions;
 }
 
