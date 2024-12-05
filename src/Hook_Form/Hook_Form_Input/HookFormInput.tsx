@@ -17,7 +17,7 @@ type FormValues = {
 
 interface HookFormInputProps {
   control: Control<any>;
-  name: keyof FormValues;
+  name: string;
   type?: string;
   rules?: RegisterOptions;
 }
@@ -35,9 +35,19 @@ const HookFormInput: React.FC<HookFormInputProps> = ({
       control={control}
       name={name}
       rules={rules}
-      render={({ field }) => (
+      render={({ field: { onChange, onBlur, value, name } }) => (
         <>
-          <input {...field} type={type} placeholder={name} />
+          <input
+            name={name}
+            value={value}
+            onChange={onChange}
+            onBlur={(e) => {
+              console.log("Input lost focus");
+              onBlur();
+            }}
+            type={type}
+            placeholder={name}
+          />
           <span>{fieldState.error?.message}</span>
         </>
       )}
