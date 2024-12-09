@@ -1,0 +1,21 @@
+/** @format */
+.zodContainer {
+  height: 100vh;
+  background: #514b4b;
+}
+.zodForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin: 0 auto;
+  width: 50%;
+  padding-top: 20px;
+}
+.zodForm input {
+  background: #bdbddc;
+}
+
+.zodForm input::placeholder {
+  color: rgb(95, 84, 107);
+  padding-left: 10px;
+}

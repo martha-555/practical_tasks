@@ -98,47 +98,49 @@ const SimpleForm = () => {
 
   return (
     <PageWrapper>
-      <form
-        onSubmit={handleSubmit}
-        className={classes.form}
-        action="martagolov4ak@gmail.com"
-      >
-        <InputField
-          placeholder="name"
-          onChange={handleName}
-          type="text"
-          value={userInfo.name}
-          errorMessage={errorMessage.name}
-        />
-        <span>{errorMessage.name}</span>
-        <InputField
-          placeholder="email"
-          onChange={handleEmail}
-          type="email"
-          value={userInfo.email}
-          errorMessage={errorMessage.email}
-        />
-        <span>{errorMessage.email}</span>
-        <InputField
-          placeholder="password"
-          onChange={handlePassword}
-          type="password"
-          value={userInfo.password}
-          errorMessage={errorMessage.password}
-        />
-        <span>{errorMessage.password}</span>
-        <button
-          disabled={!disabledButton}
-          className={
-            !disabledButton === false
-              ? classes.formButton
-              : classes.formButtonDisabled
-          }
-          type="submit"
+      <div className={classes.simpleFormContainer}>
+        <form
+          onSubmit={handleSubmit}
+          className={classes.form}
+          action="martagolov4ak@gmail.com"
         >
-          Submit
-        </button>
-      </form>
+          <InputField
+            placeholder="name"
+            onChange={handleName}
+            type="text"
+            value={userInfo.name}
+            errorMessage={errorMessage.name}
+          />
+          <span>{errorMessage.name}</span>
+          <InputField
+            placeholder="email"
+            onChange={handleEmail}
+            type="email"
+            value={userInfo.email}
+            errorMessage={errorMessage.email}
+          />
+          <span>{errorMessage.email}</span>
+          <InputField
+            placeholder="password"
+            onChange={handlePassword}
+            type="password"
+            value={userInfo.password}
+            errorMessage={errorMessage.password}
+          />
+          <span>{errorMessage.password}</span>
+          <button
+            disabled={!disabledButton}
+            className={
+              !disabledButton === false
+                ? classes.formButton
+                : classes.formButtonDisabled
+            }
+            type="submit"
+          >
+            Submit
+          </button>
+        </form>
+      </div>
     </PageWrapper>
   );
 };

@@ -1,0 +1,9 @@
+/** @format */
+
+.isValid {
+  border: 2px solid rgb(30, 132, 30);
+}
+
+.invalid {
+  border: 2px solid red;
+}

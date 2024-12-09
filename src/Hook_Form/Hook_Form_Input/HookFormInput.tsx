@@ -8,13 +8,6 @@ import {
   useController,
 } from "react-hook-form";
 
-type FormValues = {
-  name: string;
-  email: string;
-  password: string;
-  type: string;
-};
-
 interface HookFormInputProps {
   control: Control<any>;
   name: string;

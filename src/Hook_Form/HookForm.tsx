@@ -15,12 +15,7 @@ type Inputs = {
 
 const HookForm = () => {
   const { name, email, password } = validators;
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<Inputs>();
+  const { handleSubmit } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = (e) => {
     console.log(e);
@@ -36,61 +31,59 @@ const HookForm = () => {
     mode: "onChange",
   });
 
-  console.log(control);
   return (
     <PageWrapper>
-      <form className={classes.hookForm} onSubmit={handleSubmit(onSubmit)}>
-        <HookFormInput
-          control={control}
-          type="text"
-          name="name"
-          rules={{
-            required: "The name field is required",
-            pattern: {
-              value: name.regex,
-              message: "The name must consist of only letters!",
-            },
-            minLength: {
-              value: name.minLength || 0,
-              message: `The name must consist of a least ${name.minLength} characters!`,
-            },
-          }}
-        />
-        <HookFormInput
-          control={control}
-          name="email"
-          type="email"
-          rules={{
-            required: "The email field is required!",
-            pattern: {
-              value: email.regex,
-              message: "Invalid email format!",
-            },
-            minLength: {
-              value: email.minLength || 0,
-              message: ` The email must exceed ${email.minLength} characters!`,
-            },
-          }}
-        />
-        <HookFormInput
-          control={control}
-          name="password"
-          type="password"
-          rules={{
-            required: "The password field is required!",
-            pattern: {
-              value: password.regex,
-              message:
-                "The password must contain an uppercase letter, a lowercase letter, a number and a symbol!",
-            },
-            minLength: {
-              value: password.minLength || 0,
-              message: ` The email must exceed ${password.minLength} characters!`,
-            },
-          }}
-        />
-        <input type="submit" />
-      </form>
+      <div className={classes.hookFormContainer}>
+        <form className={classes.hookForm} onSubmit={handleSubmit(onSubmit)}>
+          <HookFormInput
+            control={control}
+            type="text"
+            name="name"
+            rules={{
+              required: "The name field is required",
+
+              minLength: {
+                value: name.minLength || 0,
+                message: `The name must consist of a least ${name.minLength} characters!`,
+              },
+            }}
+          />
+          <HookFormInput
+            control={control}
+            name="email"
+            type="email"
+            rules={{
+              required: "The email field is required!",
+              pattern: {
+                value: email.regex,
+                message: "Invalid email format!",
+              },
+              minLength: {
+                value: email.minLength || 0,
+                message: ` The email must exceed ${email.minLength} characters!`,
+              },
+            }}
+          />
+          <HookFormInput
+            control={control}
+            name="password"
+            type="password"
+            rules={{
+              required: "The password field is required!",
+              pattern: {
+                value: password.regex,
+                message:
+                  "The password must contain an uppercase letter, a lowercase letter, a number and a symbol!",
+              },
+              minLength: {
+                value: password.minLength || 0,
+                message: ` The password must exceed ${password.minLength} characters!`,
+              },
+            }}
+          />
+          <input type="submit" />
+        </form>
+      </div>
     </PageWrapper>
   );
 };

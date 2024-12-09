@@ -15,6 +15,7 @@ import {
 import SimpleForm from "./SimpleForm/SimpleForm";
 import Home from "./Home/Home";
 import HookForm from "./Hook_Form/HookForm";
+import FormValidationWithZod from "./FormValidationWithZod/FormValidationWithZod";
 
 function App() {
   // для складних проектів?
@@ -34,6 +35,10 @@ function App() {
     {
       path: "/hook_form",
       element: <HookForm />,
+    },
+    {
+      path: "/zod_form",
+      element: <FormValidationWithZod />,
     },
   ]);
 
