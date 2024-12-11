@@ -4,101 +4,97 @@ import PageWrapper from "../PageWrapper/PageWrapper";
 import { z } from "zod";
 import classes from "./styles.module.css";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { ChangeEventHandler, FocusEventHandler, useState } from "react";
+import { useState } from "react";
 import InputValidationWithZod from "./InputValidationWithZod/InputValidationWithZod";
-
-type FieldValues = {
-  user_name: string;
-  user_email: string;
-  user_password: string;
-  text: string;
-  email: string;
-  password: string;
-  name: string;
-};
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const FormValidationWithZod = () => {
-  const { handleSubmit } = useForm<FieldValues>();
+  type ZodRulesType = z.infer<typeof rules>;
+  const emptyMessage = "This field cannot be empty!";
 
-  const rules = {
-    rulesForEmail: [
-      z.string().email({ message: "Invalid email address!!!!!" }),
-    ],
-    rulesForName: [
-      z.string().regex(/^[A-Za-z]*$/, {
+  const rules = z.object({
+    rulesForEmail: z
+      .string()
+      .min(1, { message: emptyMessage })
+      .email({ message: "Invalid email address!!!!!" }),
+    rulesForName: z
+      .string()
+      .min(1, { message: emptyMessage })
+      .regex(/^[A-Za-z]*$/, {
         message: "The name must consist of only letters!",
-      }),
-      z
-        .string()
-        .min(2, { message: "The name must consist of a least 2 characters!" }),
-    ],
-    rulesForPassword: [
-      z.string().regex(/^(?=\S*\d)(?=\S*[A-Z])(?=\S*[a-z])(?=\S*\W)\S+$/, {
+      })
+      .min(2, { message: "The name must consist of a least 2 characters!" }),
+
+    rulesForPassword: z
+      .string()
+      .min(1, { message: emptyMessage })
+      .regex(/^(?=\S*\d)(?=\S*[A-Z])(?=\S*[a-z])(?=\S*\W)\S+$/, {
         message:
           "The password must contain an uppercase letter, a lowercase letter, a number and a symbol!",
-      }),
-      z.string().min(5, {
+      })
+      .min(5, {
         message: "The password must exceed 5 characters!",
       }),
-    ],
-  };
+  });
 
-  const { rulesForName, rulesForEmail, rulesForPassword } = rules;
+  const {
+    handleSubmit,
+    register,
+    watch,
 
-  const onSubmit: SubmitHandler<FieldValues> = (e) => {};
-
-  const { control } = useForm<FieldValues>({
+    formState: { errors },
+  } = useForm<ZodRulesType>({
+    resolver: zodResolver(rules),
     mode: "onChange",
   });
 
-  const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {};
+  const [onSubmitClick, setOnSubmitClick] = useState<boolean>(false);
+  const nameValue = watch("rulesForName");
+  const emailValue = watch("rulesForEmail");
+  const passwordValue = watch("rulesForPassword");
 
-  const handleValidation = (name: string, currentRules: z.ZodString[]) => {
-    const result = currentRules
-      .map((i) => {
-        const isValid = i.safeParse(name);
-        return isValid.error?.errors[0].message;
-      })
-      .filter((i) => i !== undefined);
-
-    return result.join("|--|");
+  const onSubmit: SubmitHandler<ZodRulesType> = async (e) => {
+    console.log("Form data");
   };
+
+  const onInvalid = (errors: any) => {
+    console.log("Form has validation errors:", errors);
+    setOnSubmitClick(true);
+  };
+
   return (
     <PageWrapper>
       <div className={classes.zodContainer}>
-        <form onSubmit={handleSubmit(onSubmit)} className={classes.zodForm}>
+        <form
+          onSubmit={handleSubmit(onSubmit, onInvalid)}
+          className={classes.zodForm}
+        >
           <InputValidationWithZod
-            onChange={onChange}
-            name="user_name"
+            onSubmitClick={onSubmitClick}
+            currentValue={nameValue}
+            name="rulesForName"
             placeholder="name"
-            control={control}
             type="text"
-            rules={{
-              validate: (nameValue) =>
-                handleValidation(nameValue, rulesForName),
-            }}
+            register={register}
+            errors={errors.rulesForName?.message}
           />
           <InputValidationWithZod
-            onChange={onChange}
-            name="user_email"
+            onSubmitClick={onSubmitClick}
+            currentValue={emailValue}
+            name="rulesForEmail"
             placeholder="email"
-            control={control}
+            register={register}
             type="email"
-            rules={{
-              validate: (emailValue) =>
-                handleValidation(emailValue, rulesForEmail),
-            }}
+            errors={errors.rulesForEmail?.message}
           />
           <InputValidationWithZod
-            onChange={onChange}
-            name="user_passwod"
+            onSubmitClick={onSubmitClick}
+            currentValue={passwordValue}
+            name="rulesForPassword"
             placeholder="password"
-            control={control}
+            errors={errors.rulesForPassword?.message}
             type="password"
-            rules={{
-              validate: (passwordValue) =>
-                handleValidation(passwordValue, rulesForPassword),
-            }}
+            register={register}
           />
           <input type="submit" />
         </form>
