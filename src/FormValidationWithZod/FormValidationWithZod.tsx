@@ -58,7 +58,6 @@ const FormValidationWithZod = () => {
   };
 
   const onInvalid = (errors: any) => {
-    console.log("Form has validation errors:", errors);
     setOnSubmitClick(true);
   };
 
